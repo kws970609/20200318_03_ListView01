@@ -2,12 +2,17 @@ package kr.co.tjoeun.a20200318_03_listview01.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.List;
 
+import kr.co.tjoeun.a20200318_03_listview01.R;
 import kr.co.tjoeun.a20200318_03_listview01.datas.Store;
 
 //Alt + Enter => 에러 해결 제안
@@ -26,5 +31,32 @@ public class StoreAdapter  extends ArrayAdapter<Store> {
         mList = objects;
         inf = LayoutInflater.from(mContext);
 
+    }
+
+    @NonNull
+    @Override
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        View row = convertView; // row는 지금 그려져야할 줄을 담는다.
+
+        if (row == null){
+//            기존에 그려둔게 없어서 그려야하냐?
+//            실제로 그려주자.
+            row = inf.inflate(R.layout.store_list_item, null);
+
+        }
+//        실제 데이터를 XML에 반영.
+//        1) 데이터 객체 추출. => mList에 있는 목록중 하나를 추출.
+//        positon 변수 활용 (그리려는 위치 알려주는 역할.)
+        Store data = mList.get(position);
+
+//        2) xml에 id 가 부여 되어 있는지 확인 => findViewById로 연결
+//          각 줄에서 view를 찾자. => row.find로 각 줄엣 검색.
+        TextView storeNameTxt = row.findViewById(R.id.storeNameTxt);
+        TextView storeRatingTxt = row.findViewById(R.id.storeRatingTxt);
+
+        storeNameTxt.setText(data.getName());
+        storeRatingTxt.setText(String.format("평점 : %d점", data.getRating()));
+
+        return row;
     }
 }

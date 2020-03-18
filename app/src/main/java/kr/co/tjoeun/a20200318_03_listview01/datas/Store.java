@@ -9,6 +9,11 @@ public class Store implements Serializable {
 
 //    Alt + Insert => 생성자 / getter ,setter 만들기
 
+    public Store(String name, int rating) {
+        this.name = name;
+        this.rating = rating;
+    }
+
     public String getName() {
         return name;
     }
